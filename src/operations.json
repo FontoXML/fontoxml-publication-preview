@@ -1,0 +1,54 @@
+{
+	"download-publication-preview": {
+		"label": "t__Download document preview",
+		"icon": "eye",
+		"steps": [
+			{
+				"type": "operation/save-all-documents-and-wait"
+			},
+			{
+				"type": "action/openPublicationPreviewUrlInNewWindow",
+				"data": {
+					"documentId": "{{documentId}}",
+					"forceDownload": true,
+					"variant": "{{variant}}"
+				}
+			}
+		]
+	},
+	"open-publication-preview": {
+		"label": "t__Preview document",
+		"icon": "eye",
+		"steps": [
+			{
+				"type": "operation/save-all-documents-and-wait"
+			},
+			{
+				"type": "modal/PublicationPreviewModal",
+				"data": {
+					"documentId": "{{documentId}}",
+					"modalIcon": "{{modalIcon}}",
+					"modalTitle": "{{modalTitle}}",
+					"variant": "{{variant}}"
+				}
+			}
+		]
+	},
+	"open-publication-preview-in-new-tab": {
+		"label": "t__Open document preview in new tab",
+		"icon": "eye",
+		"steps": [
+			{
+				"type": "operation/save-all-documents-and-wait"
+			},
+			{
+				"type": "action/openPublicationPreviewUrlInNewWindow",
+				"data": {
+					"documentId": "{{documentId}}",
+					"forceDownload": false,
+					"variant": "{{variant}}"
+				}
+			}
+		]
+	}
+}

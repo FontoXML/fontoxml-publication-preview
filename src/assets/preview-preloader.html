@@ -1,0 +1,129 @@
+<html>
+
+<head>
+	<meta charset="utf-8" />
+
+	<meta name="google" content="notranslate" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<style>
+		html {
+			display: flex;
+			flex-direction: 'column';
+			height: '100%';
+			width: 100%;
+		}
+
+		body {
+			background-color: #f7f9f9;
+			display: flex;
+			flex-direction: 'column';
+			height: 100%;
+			margin: 0;
+			overflow: hidden;
+			padding: 0;
+			width: 100%;
+		}
+
+		.state-message {
+			align-items: center;
+			color: #96a2a7;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			font-size: 20px;
+			justify-content: center;
+			line-height: 24px;
+		}
+
+		@keyframes state_message_spinner_outer {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			50% {
+				transform: rotate(720deg);
+			}
+
+			100% {
+				transform: rotate(1080deg);
+			}
+		}
+
+		.state-message>svg {
+			animation: state_message_spinner_outer 4096ms linear infinite;
+			transform-origin: 48px 48px 0px;
+		}
+
+		@keyframes state_message_spinner_inner {
+			0% {
+				stroke-dashoffset: 150.79644737231007px;
+			}
+
+			50% {
+				stroke-dashoffset: 301.59289474462014px;
+			}
+
+			100% {
+				stroke-dashoffset: 150.79644737231007px;
+			}
+		}
+
+		.state-message-inner-circle {
+			animation: state_message_spinner_inner 4096ms linear infinite;
+		}
+
+		.state-message-message-placeholder {
+			margin-top: 0.5rem;
+		}
+
+		.state-message-subtitle {
+			font-size: .875rem;
+			line-height: 1.25rem;
+			margin-top: 1.5rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class='state-message'>
+		<svg viewbox="0 0 96 96" width="96px" height="96px">
+			<circle cx="50%" cy="50%" r="43.75%" stroke="#6ab7e6" stroke-width="12px" stroke-linecap="round"
+				fill="rgba(0, 0, 0, 0)"></circle>
+
+			<circle class="state-message-inner-circle" cx="50%" cy="50%" r="43.75%" stroke="#125d8f" stroke-width="6px"
+				stroke-dasharray="301.59px" stroke-linecap="round" fill="rgba(0, 0, 0, 0)"></circle>
+		</svg>
+
+		<div id="placeholder" class="state-message-message-placeholder">&nbsp;</div>
+
+		<div id="subtitle" class="state-message-subtitle"></div>
+	</div>
+
+	<script>
+		window.addEventListener('message', function (event) {
+			if (!event || !event.data) {
+				return;
+			}
+
+			if (event.origin !== document.location.origin) {
+				throw new Error(`Unexpected origin: ${event.origin}`);
+			}
+
+			if (event.data.previewUrl) {
+				window.location.replace(event.data.previewUrl);
+			}
+		});
+
+		(function () {
+			const params = new URLSearchParams(window.location.search);
+			document.title = params.get('title');
+			document.getElementById('placeholder').textContent = params.get('title');
+			document.getElementById('subtitle').textContent = params.get('subtitle');
+		})();
+	</script>
+</body>
+
+</html>
